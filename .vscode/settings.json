@@ -1,0 +1,5 @@
+{
+  "terminal.explorerKind": "external",
+  "terminal.integrated.allowChords": false,
+  "terminal.external.windowsExec": "C:\\WINDOWS\\System32\\cmd.exe"
+}

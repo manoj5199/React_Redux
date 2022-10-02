@@ -3,14 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
-import { slice1Red } from "./slides/slide1";
 import { Provider } from "react-redux";
+import { albumReduser } from "./Slices/albums";
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 
 export const store = configureStore({
   reducer: {
-    slice: slice1Red,
+    album: albumReduser,
   },
 });
 

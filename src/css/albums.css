@@ -1,0 +1,26 @@
+.album_list {
+  display: flex;
+  color: aliceblue;
+  flex-direction: row;
+  column-gap: 1em;
+  row-gap: 2em;
+  align-items: center;
+  text-align: center;
+  border-radius: 1em;
+  height: 3em;
+  border: 0.1mm solid;
+  margin: 2em;
+}
+.albun_userID {
+  align-items: center;
+  text-align: center;
+  font: 1em sans-serif;
+  font-size: 1em;
+  width: 7em;
+}
+.album_title {
+  align-items: center;
+  text-align: center;
+  font: 1em sans-serif;
+  font-size: 1em;
+}
