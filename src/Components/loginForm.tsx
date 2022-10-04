@@ -5,6 +5,7 @@ import { API_URL_ALBUMS } from "../Constants/URL";
 import { addAlbum } from "../Slices/albums";
 import { usersState } from "../Slices/users";
 import AlbumsList from "./albums";
+import "../css/loginForm.css";
 
 const LoinForm = () => {
   const [userName, setUserName] = useState("");
@@ -30,7 +31,7 @@ const LoinForm = () => {
 
   const userValidate = (userName: string) => {
     users.filter((user) => {
-      if (user.username === userName) {
+      if (user.username !== "" && user.username === userName) {
         setUserId(user.id.toString());
         setLoginState(true);
       }
@@ -39,8 +40,9 @@ const LoinForm = () => {
 
   return !loginState ? (
     <div>
-      <form>
+      <form id="login_form">
         <input
+          id="user_input"
           type={"text"}
           placeholder="USER NAME"
           onChange={(e) => {
@@ -49,7 +51,9 @@ const LoinForm = () => {
           required
         ></input>
         <button
-          onClick={() => {
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
             setInitialRender(true);
             userValidate(userName);
           }}

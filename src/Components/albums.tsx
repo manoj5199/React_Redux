@@ -17,7 +17,7 @@ interface AlbumState {
 const AlbumsList = (props: { userID: string }) => {
   const albums = useSelector((state: AlbumState) => state.album);
   const album = albums.value?.filter(
-    (a) => a.userId.toString() === "props.userID"
+    (a) => a.userId.toString() === props.userID
   );
   return (
     <div>
