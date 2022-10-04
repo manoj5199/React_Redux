@@ -15,16 +15,18 @@ interface AlbumState {
 }
 
 const AlbumsList = (props: { userID: string }) => {
-  const albums = useSelector((state: AlbumState) => state.album.value);
-  const album = albums.filter((a) => a.id.toString() === props.userID);
+  const albums = useSelector((state: AlbumState) => state.album);
+  const album = albums.value?.filter(
+    (a) => a.userId.toString() === "props.userID"
+  );
   return (
     <div>
       <ul className="u_list">
         {album.map((a) => {
           return (
             <li className="album_list" key={Math.random().toString()}>
-              <div className="albun_userID">{`User ID : ${a.userId}`}</div>
-              <div className="album_title">{`${a.title.toUpperCase()}`}</div>
+              <div className="albun_userID">{`User ID : ${a?.userId}`}</div>
+              <div className="album_title">{`${a?.title.toUpperCase()}`}</div>
             </li>
           );
         })}
