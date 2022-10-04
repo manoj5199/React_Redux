@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addAlbum } from "./Slices/albums";
+import { addUsers } from "./Slices/users";
 import Axios from "axios";
-import { API_URL } from "./Constants/URL";
-import AlbumsList from "./Components/albums";
+import { API_URL_USERS } from "./Constants/URL";
+import LoinForm from "./Components/loginForm";
 
 export interface RootState {
   slice: { value: [{ firstName: string; age: number; gender: string }] };
@@ -12,25 +12,29 @@ export interface RootState {
 function App() {
   // type AppDispatch = typeof store.dispatch;
   const disp = useDispatch();
-  const fechData = async () => {
+
+  const fetchUsers = async () => {
     try {
-      const res = await Axios.get(API_URL);
-      disp(addAlbum(res.data));
+      const res = await Axios.get(API_URL_USERS);
+      disp(addUsers(res.data));
     } catch (error) {
       console.log(error);
     }
   };
-  const [effect, setEffect] = useState(true);
+  const [initialRender, setInitialRender] = useState(true);
+
   useEffect(() => {
-    if (effect) {
-      fechData();
-      setEffect(false);
+    if (initialRender) {
+      fetchUsers();
+      setInitialRender(false);
     }
-  }, [effect]);
+  }, [initialRender]);
 
   return (
     <div className="App">
-      <AlbumsList></AlbumsList>
+      <div>
+        <LoinForm></LoinForm>
+      </div>
     </div>
   );
 }

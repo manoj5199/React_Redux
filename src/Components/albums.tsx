@@ -14,12 +14,13 @@ interface AlbumState {
   };
 }
 
-const AlbumsList = () => {
+const AlbumsList = (props: { userID: string }) => {
   const albums = useSelector((state: AlbumState) => state.album.value);
+  const album = albums.filter((a) => a.id.toString() === props.userID);
   return (
     <div>
       <ul className="u_list">
-        {albums.map((a) => {
+        {album.map((a) => {
           return (
             <li className="album_list" key={Math.random().toString()}>
               <div className="albun_userID">{`User ID : ${a.userId}`}</div>
