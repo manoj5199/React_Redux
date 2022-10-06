@@ -5,7 +5,7 @@ import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { albumReduser } from "./Slices/albums";
-import { userReaducer } from "./Slices/users";
+import { userReaducer } from "./Slices/userLogin";
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 

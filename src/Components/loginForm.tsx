@@ -1,41 +1,19 @@
-import Axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { API_URL_ALBUMS } from "../Constants/URL";
-import { addAlbum } from "../Slices/albums";
-import { usersState } from "../Slices/users";
 import AlbumsList from "./albums";
 import "../css/loginForm.css";
+import { fetchUser, usersState, setUserName } from "../Slices/userLogin";
+import { fetchAlbumDatas } from "../Slices/albums";
 
 const LoinForm = () => {
-  const [userName, setUserName] = useState("");
-  const [userId, setUserId] = useState("");
-  const users = useSelector((state: usersState) => state.users.value);
+  const users = useSelector((state: any) => state.users);
+  const loginState = users.loged;
+  const userID: usersState = users.user[0];
   const disp = useDispatch();
-  const fetchData = async () => {
-    try {
-      const res = await Axios.get(API_URL_ALBUMS);
-      disp(addAlbum(res.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const [initialRender, setInitialRender] = useState(true);
-  const [loginState, setLoginState] = useState(false);
-  useEffect(() => {
-    if (initialRender) {
-      fetchData();
-      setInitialRender(false);
-    }
-  }, [loginState]);
 
-  const userValidate = (userName: string) => {
-    users.filter((user) => {
-      if (user.username !== "" && user.username === userName) {
-        setUserId(user.id.toString());
-        setLoginState(true);
-      }
-    });
+  const onLoginHandler = async () => {
+    await disp(fetchUser() as any);
+    await disp(fetchAlbumDatas() as any);
   };
 
   return !loginState ? (
@@ -46,7 +24,7 @@ const LoinForm = () => {
           type={"text"}
           placeholder="USER NAME"
           onChange={(e) => {
-            setUserName(e.target.value);
+            disp(setUserName(e.target.value));
           }}
           required
         ></input>
@@ -54,8 +32,7 @@ const LoinForm = () => {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            setInitialRender(true);
-            userValidate(userName);
+            onLoginHandler();
           }}
         >
           Login
@@ -63,7 +40,7 @@ const LoinForm = () => {
       </form>
     </div>
   ) : (
-    <AlbumsList userID={userId}></AlbumsList>
+    <AlbumsList userID={userID.id.toString()}></AlbumsList>
   );
 };
 
