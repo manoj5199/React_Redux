@@ -58,13 +58,13 @@ const userData = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
-      if (!state.userName) {
-        alert("Please enter User Name");
+      if (action.payload.length === 0 || state.userName === undefined) {
+        alert("Please enter valide User Name");
         return;
       }
+      state.loged = true;
       state.loading = false;
       state.user = action.payload;
-      state.loged = true;
     });
     builder.addCase(fetchUsers.rejected, (state, action) => {
       state.loading = false;
